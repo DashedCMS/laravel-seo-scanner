@@ -71,7 +71,11 @@ if (! function_exists('getRemoteFileSize')) {
             }
 
             if (! isset($contentLength)) {
+                try{
                 $contentLength = strlen(file_get_contents($url));
+                }catch (Exception $exception){
+                    $contentLength = 0;
+                }
             }
 
             return $contentLength;
