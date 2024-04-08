@@ -57,19 +57,19 @@ class SeoScan extends Command
         $this->progress = $this->output->createProgressBar(getCheckCount());
         $this->line('');
 
-//        if (config('seo.check_routes')) {
-//            $this->calculateScoreForRoutes();
-//        }
-//
-//        if (config('seo.models')) {
-//            foreach (config('seo.models') as $model) {
-//                if (is_array($model)) {
-//                    $this->calculateScoreForModel($model[0], $model[1]);
-//                } else {
-//                    $this->calculateScoreForModel($model);
-//                }
-//            }
-//        }
+        if (config('seo.check_routes')) {
+            $this->calculateScoreForRoutes();
+        }
+
+        if (config('seo.models')) {
+            foreach (config('seo.models') as $model) {
+                if (is_array($model)) {
+                    $this->calculateScoreForModel($model[0], $model[1]);
+                } else {
+                    $this->calculateScoreForModel($model);
+                }
+            }
+        }
 
         foreach (cms()->builder('routeModels') ?? [] as $routeModel) {
             $this->calculateScoreForModel($routeModel['class']);
@@ -179,6 +179,7 @@ class SeoScan extends Command
 
         $items->get()->filter->url->map(function ($model) {
             $this->progress->start();
+            $this->line('Scanning ' . $model->url . '...');
 
             $seo = $model->seoScore();
 
