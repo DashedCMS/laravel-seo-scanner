@@ -34,7 +34,7 @@ class SeoScan extends Command
 
     public function handle(): int
     {
-        if (empty(config('seo.models')) && ! config('seo.check_routes')) {
+        if (empty(config('seo.models')) && !config('seo.check_routes')) {
             $this->error('No models or routes specified in config/seo.php');
 
             return self::FAILURE;
@@ -57,23 +57,27 @@ class SeoScan extends Command
         $this->progress = $this->output->createProgressBar(getCheckCount());
         $this->line('');
 
-        if (config('seo.check_routes')) {
-            $this->calculateScoreForRoutes();
-        }
+//        if (config('seo.check_routes')) {
+//            $this->calculateScoreForRoutes();
+//        }
+//
+//        if (config('seo.models')) {
+//            foreach (config('seo.models') as $model) {
+//                if (is_array($model)) {
+//                    $this->calculateScoreForModel($model[0], $model[1]);
+//                } else {
+//                    $this->calculateScoreForModel($model);
+//                }
+//            }
+//        }
 
-        if (config('seo.models')) {
-            foreach (config('seo.models') as $model) {
-                if (is_array($model)) {
-                    $this->calculateScoreForModel($model[0], $model[1]);
-                } else {
-                    $this->calculateScoreForModel($model);
-                }
-            }
+        foreach (cms()->builder('routeModels') ?? [] as $routeModel) {
+            $this->calculateScoreForModel($routeModel['class']);
         }
 
         $totalPages = $this->modelCount + $this->routeCount;
 
-        $this->info('Command completed with '.$this->failed.' failed and '.$this->success.' successful checks on '.$totalPages.' pages.');
+        $this->info('Command completed with ' . $this->failed . ' failed and ' . $this->success . ' successful checks on ' . $totalPages . ' pages.');
 
         cache()->driver(config('seo.cache.driver'))->tags('seo')->flush();
 
@@ -117,24 +121,24 @@ class SeoScan extends Command
     private static function getRoutes(): Collection
     {
         $routes = collect(app('router')->getRoutes()->getRoutesByName())
-            ->filter(fn ($route) => $route->methods[0] === 'GET');
+            ->filter(fn($route) => $route->methods[0] === 'GET');
 
         // Check if all routes should be checked
         if (in_array('*', Arr::wrap(config('seo.routes')))) {
-            $routes = $routes->map(fn ($route) => $route->uri);
+            $routes = $routes->map(fn($route) => $route->uri);
         } else {
             // Only check the routes specified in the config
-            $routes = $routes->filter(fn ($route) => in_array($route->getName(), Arr::wrap(config('seo.routes'))))
-                ->map(fn ($route) => $route->uri);
+            $routes = $routes->filter(fn($route) => in_array($route->getName(), Arr::wrap(config('seo.routes'))))
+                ->map(fn($route) => $route->uri);
         }
 
         // Filter out excluded routes by name
-        if (! empty(config('seo.exclude_routes'))) {
-            $routes = $routes->filter(fn ($route, $name) => ! in_array($name, config('seo.exclude_routes')));
+        if (!empty(config('seo.exclude_routes'))) {
+            $routes = $routes->filter(fn($route, $name) => !in_array($name, config('seo.exclude_routes')));
         }
 
         // Filter out excluded routes by path
-        if (! empty(config('seo.exclude_paths'))) {
+        if (!empty(config('seo.exclude_paths'))) {
             $routes = $routes->filter(function ($route) {
                 foreach (config('seo.exclude_paths') as $path) {
                     // if path contains a wildcard, check if the route starts with the path
@@ -157,9 +161,9 @@ class SeoScan extends Command
         }
 
         // Exclude routes that contain a parameter or where it ends with .txt or .xml
-        $routes = $routes->filter(fn ($route) => ! str_contains($route, '{') &&
-            ! str_ends_with($route, '.txt') &&
-            ! str_ends_with($route, '.xml')
+        $routes = $routes->filter(fn($route) => !str_contains($route, '{') &&
+            !str_ends_with($route, '.txt') &&
+            !str_ends_with($route, '.xml')
         );
 
         return $routes;
@@ -230,22 +234,22 @@ class SeoScan extends Command
         $this->line('');
         $this->line('');
         $this->line('-----------------------------------------------------------------------------------------------------------------------------------');
-        $this->line('> '.$url.' | <fg=green>'.$seo->getSuccessfulChecks()->count().' passed</> <fg=red>'.($seo->getFailedChecks()->count().' failed</>'));
+        $this->line('> ' . $url . ' | <fg=green>' . $seo->getSuccessfulChecks()->count() . ' passed</> <fg=red>' . ($seo->getFailedChecks()->count() . ' failed</>'));
         $this->line('-----------------------------------------------------------------------------------------------------------------------------------');
         $this->line('');
 
         $seo->getAllChecks()->each(function ($checks, $type) {
             $checks->each(function ($check) use ($type) {
                 if ($type == 'failed') {
-                    $this->line('<fg=red>✘ '.$check->title.' failed.</>');
+                    $this->line('<fg=red>✘ ' . $check->title . ' failed.</>');
 
                     if (property_exists($check, 'failureReason')) {
-                        $this->line($check->failureReason.' Estimated time to fix: '.$check->timeToFix.' minute(s).');
+                        $this->line($check->failureReason . ' Estimated time to fix: ' . $check->timeToFix . ' minute(s).');
 
                         $this->line('');
                     }
                 } else {
-                    $this->line('<fg=green>✔ '.$check->title.'</>');
+                    $this->line('<fg=green>✔ ' . $check->title . '</>');
                 }
             });
 
