@@ -206,6 +206,15 @@ class SeoScan extends Command
         });
     }
 
+    public function calculateScoreForSpecificModel($model): void
+    {
+        $seo = $model->seoScore();
+
+        if (config('seo.database.save')) {
+            $this->saveScoreToDatabase(seo: $seo, url: $model->url, model: $model);
+        }
+    }
+
     private function saveScoreToDatabase(SeoScore $seo, string $url, ?object $model = null): void
     {
         $score = $seo->getScore();
