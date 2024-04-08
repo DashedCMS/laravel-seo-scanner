@@ -462,8 +462,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 -   [Robin van Maasakker](https://github.com/Robinvm)
--   [Bas van Dinther](https://github.com/Baspa)
--   [Mark van Eijk](https://github.com/markvaneijk)
+-   [Forked from Vormkracht10](https://github.com/Vormkracht10)
 -   [All Contributors](../../contributors)
 
 ## License
