@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\Seo\Checks\Performance;
+namespace Dashed\Seo\Checks\Performance;
 
 use Illuminate\Http\Client\Response;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Interfaces\Check;
-use Vormkracht10\Seo\Traits\PerformCheck;
-use Vormkracht10\Seo\Traits\Translatable;
+use Dashed\Seo\Interfaces\Check;
+use Dashed\Seo\Traits\PerformCheck;
+use Dashed\Seo\Traits\Translatable;
 
 class TtfbCheck implements Check
 {

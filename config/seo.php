@@ -37,7 +37,7 @@ return [
     | various methods. Feel free to customize it.
     |
     | An example of a check class:
-    | \Vormkracht10\Seo\Checks\Content\BrokenLinkCheck::class
+    | \Dashed\Seo\Checks\Content\BrokenLinkCheck::class
     |
     */
     'checks' => ['*'],
@@ -57,7 +57,7 @@ return [
     |
     */
     'check_paths' => [
-        'Vormkracht10\\Seo\\Checks' => base_path('vendor/vormkracht10/laravel-seo-scanner/src/Checks'),
+        'Dashed\\Seo\\Checks' => base_path('vendor/dashed/laravel-seo-scanner/src/Checks'),
     ],
 
     /*
@@ -190,7 +190,7 @@ return [
         'status_codes' => [],
 
         // If you wish to skip running, list the URLs in the array below.
-        // You can use exact match or wildcards to match on beginning of URLs: https://vormkracht10.nl/directory/*
+        // You can use exact match or wildcards to match on beginning of URLs: https://dashed.nl/directory/*
         'exclude_links' => [
             //
         ],

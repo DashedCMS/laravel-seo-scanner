@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Helpers;
+namespace Dashed\Seo\Helpers;
 
 class TransitionWords
 {

@@ -1,11 +1,11 @@
 # Laravel SEO Scanner
 
-[![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/laravel-seo-scanner.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-seo-scanner)
-[![Tests](https://github.com/vormkracht10/laravel-seo-scanner/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-seo-scanner/actions/workflows/run-tests.yml)
-[![PHPStan](https://github.com/vormkracht10/laravel-seo-scanner/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-seo-scanner/actions/workflows/phpstan.yml)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/vormkracht10/laravel-seo-scanner)
-![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/vormkracht10/laravel-seo-scanner)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/laravel-seo-scanner.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-seo-scanner)
+[![Total Downloads](https://img.shields.io/packagist/dt/dashed/laravel-seo-scanner.svg?style=flat-square)](https://packagist.org/packages/dashed/laravel-seo-scanner)
+[![Tests](https://github.com/dashed/laravel-seo-scanner/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/dashed/laravel-seo-scanner/actions/workflows/run-tests.yml)
+[![PHPStan](https://github.com/dashed/laravel-seo-scanner/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/dashed/laravel-seo-scanner/actions/workflows/phpstan.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/dashed/laravel-seo-scanner)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/dashed/laravel-seo-scanner)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dashed/laravel-seo-scanner.svg?style=flat-square)](https://packagist.org/packages/dashed/laravel-seo-scanner)
 
 ## The Laravel tool to boost the SEO score of your web pages
 
@@ -52,7 +52,7 @@ Easily configure which routes to scan, exclude or include specific checks or eve
 You can install the package via composer:
 
 ```bash
-composer require vormkracht10/laravel-seo-scanner
+composer require dashed/laravel-seo-scanner
 ```
 
 If you want to scan pages that are rendered using Javascript, for example Vue or React, you need to install Puppeteer. You can install it using the following command:
@@ -80,7 +80,7 @@ php artisan migrate
 php artisan vendor:publish --tag="seo-config"
 ```
 
-Click here to see the [config file](https://github.com/vormkracht10/laravel-seo-scanner/blob/too-long-sentences-check/config/seo.php).
+Click here to see the [config file](https://github.com/dashed/laravel-seo-scanner/blob/too-long-sentences-check/config/seo.php).
 
 ## Available checks
 
@@ -161,7 +161,7 @@ php artisan seo:scan
 If you want to queue the scan and trigger it manually you can dispatch the 'Scan' job:
 
 ```php
-use Vormkracht10\LaravelSeo\Jobs\Scan;
+use Dashed\LaravelSeo\Jobs\Scan;
 
 Scan::dispatch();
 ```
@@ -171,7 +171,7 @@ Scan::dispatch();
 Want to get the score of a specific url? Run the following command:
 
 ```bash
-php artisan seo:scan-url https://vormkracht10.nl
+php artisan seo:scan-url https://dashed.nl
 ```
 
 > Note: The command will only check the SEO score of the url and output the score in the CLI. It will not save the score to the database.
@@ -181,7 +181,7 @@ php artisan seo:scan-url https://vormkracht10.nl
 If you have an SPA application, you can enable javascript rendering. This will use a headless browser to render the content. To enable javascript rendering, set the `javascript` option to `true` in the config file. You can also enable javascript rendering for a single route by adding the `--javascript` option to the command:
 
 ```bash
-php artisan seo:scan-url https://vormkracht10.nl --javascript
+php artisan seo:scan-url https://dashed.nl --javascript
 ```
 
 > Note: This command will use Puppeteer to render the page. Make sure that you have Puppeteer installed on your system. You can install Puppeteer by running the following command: `npm install puppeteer`. **At this moment it's only available when scanning single routes.**
@@ -200,8 +200,8 @@ For example, you have a `BlogPost` model which has a page for each content item:
 
 ```php
 
-use Vormkracht10\Seo\Traits\HasSeoScore;
-use Vormkracht10\Seo\SeoInterface;
+use Dashed\Seo\Traits\HasSeoScore;
+use Dashed\Seo\SeoInterface;
 
 class BlogPost extends Model implements SeoInterface
 {
@@ -217,7 +217,7 @@ class BlogPost extends Model implements SeoInterface
 
     public function getUrlAttribute(): string
     {
-        return 'https://vormkracht10.nl/' . $this->slug;
+        return 'https://dashed.nl/' . $this->slug;
     }
 }
 ```
@@ -300,7 +300,7 @@ protected $listen = [
 You can retrieve the scans from the database by using the `SeoScan` model. This model is used to save the scans to the database. You can use the `SeoScan` model to retrieve the scans from the database. For example:
 
 ```php
-use Vormkracht10\Seo\Models\SeoScan;
+use Dashed\Seo\Models\SeoScan;
 
 // Get the latest scan
 $scan = SeoScan::latest()->first();
@@ -317,7 +317,7 @@ $totalPages = $scan->pages;
 You can retrieve the scores from the database by using the `SeoScore` model. This model is used to save the scores to the database. You can use the `SeoScore` model to retrieve the scores from the database. For example:
 
 ```php
-use Vormkracht10\Seo\Models\SeoScore;
+use Dashed\Seo\Models\SeoScore;
 
 // Get the latest score
 $score = SeoScore::latest()->first();
@@ -330,8 +330,8 @@ $scan = SeoScan::latest()->with('scores')->first();
 
 You can add your own checks to the package. To do this, you need to create a `check` class in your application.
 
-1. Create a new class in your application which implements the `Vormkracht10\Seo\Interfaces\Check` interface.
-2. Add the `Vormkracht10\Seo\Traits\PerformCheck` trait to your class.
+1. Create a new class in your application which implements the `Dashed\Seo\Interfaces\Check` interface.
+2. Add the `Dashed\Seo\Traits\PerformCheck` trait to your class.
 3. Add the base path of your check classes to the `check_paths` array in the config file.
 
 #### Example
@@ -345,8 +345,8 @@ namespace App\Support\Seo\Checks;
 
 use Illuminate\Http\Client\Response;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Interfaces\Check;
-use Vormkracht10\Seo\Traits\PerformCheck;
+use Dashed\Seo\Interfaces\Check;
+use Dashed\Seo\Traits\PerformCheck;
 
 class CanonicalCheck implements Check
 {
@@ -436,7 +436,7 @@ The config file:
 return [
     // ...
     'check_paths' => [
-        'Vormkracht10\\Seo\\Checks' => base_path('vendor/vormkracht10/laravel-seo-scanner/src/Checks'),
+        'Dashed\\Seo\\Checks' => base_path('vendor/dashed/laravel-seo-scanner/src/Checks'),
         'App\\Support\\Seo\\Checks' => base_path('app/Support/Seo/Checks'),
     ],
 ];

@@ -19,7 +19,7 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="Vormkracht10 Test Suite">
+        <testsuite name="Dashed Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

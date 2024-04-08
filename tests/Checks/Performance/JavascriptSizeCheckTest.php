@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Checks\Performance\JavascriptSizeCheck;
+use Dashed\Seo\Checks\Performance\JavascriptSizeCheck;
 
 /**
  * @see In this test, we pass the javascript file as a response to the check method.
@@ -15,16 +15,16 @@ it('can perform the Javascript size check on a page with a Javascript file large
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head><script src="https://vormkracht10.nl/script.js"></script></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head><script src="https://dashed.nl/script.js"></script></head><body></body></html>', 200),
     ]);
 
     Http::fake([
-        'vormkracht10.nl/script.js' => Http::response(str_repeat('abcdefghij', 10000001), 200),
+        'dashed.nl/script.js' => Http::response(str_repeat('abcdefghij', 10000001), 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertFalse($check->check(Http::get('vormkracht10.nl/script.js'), $crawler));
+    $this->assertFalse($check->check(Http::get('dashed.nl/script.js'), $crawler));
 });
 
 it('can perform the Javascript size check on a page with a Javascript file smaller than 1 MB', function () {
@@ -32,16 +32,16 @@ it('can perform the Javascript size check on a page with a Javascript file small
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head><script src="https://vormkracht10.nl/script.js"></script></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head><script src="https://dashed.nl/script.js"></script></head><body></body></html>', 200),
     ]);
 
     Http::fake([
-        'vormkracht10.nl/script.js' => Http::response('abcdefghij', 200),
+        'dashed.nl/script.js' => Http::response('abcdefghij', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertTrue($check->check(Http::get('vormkracht10.nl/script.js'), $crawler));
+    $this->assertTrue($check->check(Http::get('dashed.nl/script.js'), $crawler));
 });
 
 it('can perform the Javascript size check on a page without Javascript files', function () {
@@ -49,10 +49,10 @@ it('can perform the Javascript size check on a page without Javascript files', f
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertTrue($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertTrue($check->check(Http::get('dashed.nl'), $crawler));
 });

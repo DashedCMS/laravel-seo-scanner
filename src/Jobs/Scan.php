@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Jobs;
+namespace Dashed\Seo\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

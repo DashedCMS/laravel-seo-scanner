@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Events;
+namespace Dashed\Seo\Events;
 
 class ScanCompleted
 {

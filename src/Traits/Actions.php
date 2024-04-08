@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Traits;
+namespace Dashed\Seo\Traits;
 
 use Illuminate\Http\Client\Response;
 use Readability\Readability;

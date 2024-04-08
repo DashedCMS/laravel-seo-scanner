@@ -1,14 +1,14 @@
 <?php
 
-namespace Vormkracht10\Seo\Checks\Content;
+namespace Dashed\Seo\Checks\Content;
 
 use Illuminate\Http\Client\Response;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Helpers\TransitionWords;
-use Vormkracht10\Seo\Interfaces\Check;
-use Vormkracht10\Seo\Traits\Actions;
-use Vormkracht10\Seo\Traits\PerformCheck;
-use Vormkracht10\Seo\Traits\Translatable;
+use Dashed\Seo\Helpers\TransitionWords;
+use Dashed\Seo\Interfaces\Check;
+use Dashed\Seo\Traits\Actions;
+use Dashed\Seo\Traits\PerformCheck;
+use Dashed\Seo\Traits\Translatable;
 
 class TransitionWordRatioCheck implements Check
 {

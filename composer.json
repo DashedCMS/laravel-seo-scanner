@@ -1,17 +1,17 @@
 {
-    "name": "vormkracht10/laravel-seo-scanner",
+    "name": "dashed/laravel-seo-scanner",
     "description": "Laravel package to check if you used important SEO tags in your website. ",
     "keywords": [
-        "vormkracht10",
+        "dashed",
         "laravel",
         "laravel-seo-scanner"
     ],
-    "homepage": "https://github.com/vormkracht10/laravel-seo-scanner",
+    "homepage": "https://github.com/dashed/laravel-seo-scanner",
     "license": "MIT",
     "authors": [
         {
             "name": "Bas van Dinther",
-            "email": "bas@vormkracht10.nl",
+            "email": "bas@dashed.nl",
             "role": "Developer"
         }
     ],
@@ -41,8 +41,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\Seo\\": "src",
-            "Vormkracht10\\Seo\\Database\\Factories\\": "database/factories"
+            "Dashed\\Seo\\": "src",
+            "Dashed\\Seo\\Database\\Factories\\": "database/factories"
         },
         "files": [
             "src/helpers.php"
@@ -50,7 +50,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\Seo\\Tests\\": "tests"
+            "Dashed\\Seo\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -69,10 +69,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\Seo\\SeoServiceProvider"
+                "Dashed\\Seo\\SeoServiceProvider"
             ],
             "aliases": {
-                "Seo": "Vormkracht10\\Seo\\Facades\\Seo"
+                "Seo": "Dashed\\Seo\\Facades\\Seo"
             }
         }
     },

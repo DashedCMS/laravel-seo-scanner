@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Models;
+namespace Dashed\Seo\Models;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

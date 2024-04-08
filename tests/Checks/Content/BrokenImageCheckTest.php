@@ -2,19 +2,19 @@
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Checks\Content\BrokenImageCheck;
+use Dashed\Seo\Checks\Content\BrokenImageCheck;
 
 it('can perform the broken image check on broken images', function () {
     $check = new BrokenImageCheck();
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body><img src="https://vormkracht10.nl/404"></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body><img src="https://dashed.nl/404"></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertFalse($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertFalse($check->check(Http::get('dashed.nl'), $crawler));
 });
 
 it('can perform the broken image check on working images', function () {
@@ -22,12 +22,12 @@ it('can perform the broken image check on working images', function () {
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body><img src="https://vormkracht10.nl"></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body><img src="https://dashed.nl"></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertTrue($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertTrue($check->check(Http::get('dashed.nl'), $crawler));
 });
 
 it('can perform the broken image check on content where no images are used', function () {
@@ -35,10 +35,10 @@ it('can perform the broken image check on content where no images are used', fun
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertTrue($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertTrue($check->check(Http::get('dashed.nl'), $crawler));
 });

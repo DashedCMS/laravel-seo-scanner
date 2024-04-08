@@ -2,19 +2,19 @@
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Checks\Content\AltTagCheck;
+use Dashed\Seo\Checks\Content\AltTagCheck;
 
 it('can perform the alt tag check with alt', function () {
     $check = new AltTagCheck();
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body><img src="https://vormkracht10.nl/images/logo.png" width="5" height="5" alt="Vormkracht10 logo"></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body><img src="https://dashed.nl/images/logo.png" width="5" height="5" alt="Dashed logo"></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertTrue($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertTrue($check->check(Http::get('dashed.nl'), $crawler));
 });
 
 it('can perform the alt tag check without alt', function () {
@@ -22,12 +22,12 @@ it('can perform the alt tag check without alt', function () {
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body><img src="https://vormkracht10.nl/images/logo.png" width="5" height="5"></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body><img src="https://dashed.nl/images/logo.png" width="5" height="5"></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertFalse($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertFalse($check->check(Http::get('dashed.nl'), $crawler));
 });
 
 it('can perform the alt tag check with empty alt', function () {
@@ -35,10 +35,10 @@ it('can perform the alt tag check with empty alt', function () {
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body><img src="https://vormkracht10.nl/images/logo.png" width="5" height="5" alt=""></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body><img src="https://dashed.nl/images/logo.png" width="5" height="5" alt=""></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertFalse($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertFalse($check->check(Http::get('dashed.nl'), $crawler));
 });

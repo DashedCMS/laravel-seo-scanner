@@ -1,5 +1,5 @@
 <?php
 
-use Vormkracht10\Seo\Tests\TestCase;
+use Dashed\Seo\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

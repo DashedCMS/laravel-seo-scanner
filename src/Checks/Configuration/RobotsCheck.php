@@ -1,13 +1,13 @@
 <?php
 
-namespace Vormkracht10\Seo\Checks\Configuration;
+namespace Dashed\Seo\Checks\Configuration;
 
 use Illuminate\Http\Client\Response;
 use Symfony\Component\DomCrawler\Crawler;
 use vipnytt\RobotsTxtParser\UriClient;
-use Vormkracht10\Seo\Interfaces\Check;
-use Vormkracht10\Seo\Traits\PerformCheck;
-use Vormkracht10\Seo\Traits\Translatable;
+use Dashed\Seo\Interfaces\Check;
+use Dashed\Seo\Traits\PerformCheck;
+use Dashed\Seo\Traits\Translatable;
 
 class RobotsCheck implements Check
 {

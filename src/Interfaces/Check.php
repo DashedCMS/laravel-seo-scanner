@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Interfaces;
+namespace Dashed\Seo\Interfaces;
 
 use Closure;
 use Illuminate\Http\Client\Response;

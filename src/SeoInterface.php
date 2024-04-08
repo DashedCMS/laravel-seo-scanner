@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo;
+namespace Dashed\Seo;
 
 interface SeoInterface
 {

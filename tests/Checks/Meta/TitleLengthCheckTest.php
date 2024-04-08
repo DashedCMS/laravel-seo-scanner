@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\Seo\Checks\Meta\TitleLengthCheck;
+use Dashed\Seo\Checks\Meta\TitleLengthCheck;
 
 it('can perform the title length check on a page with a too long title', function () {
     $check = new TitleLengthCheck();
@@ -11,12 +11,12 @@ it('can perform the title length check on a page with a too long title', functio
     $title = str_repeat('a', 61);
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head><title>'.$title.'</title></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head><title>'.$title.'</title></head><body></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertFalse($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertFalse($check->check(Http::get('dashed.nl'), $crawler));
 });
 
 it('can perform the title length check on a page with a short title', function () {
@@ -26,12 +26,12 @@ it('can perform the title length check on a page with a short title', function (
     $title = str_repeat('a', 60);
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head><title>'.$title.'</title></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head><title>'.$title.'</title></head><body></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertTrue($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertTrue($check->check(Http::get('dashed.nl'), $crawler));
 });
 
 it('can perform the title length check on a page without a title', function () {
@@ -39,10 +39,10 @@ it('can perform the title length check on a page without a title', function () {
     $crawler = new Crawler();
 
     Http::fake([
-        'vormkracht10.nl' => Http::response('<html><head></head><body></body></html>', 200),
+        'dashed.nl' => Http::response('<html><head></head><body></body></html>', 200),
     ]);
 
-    $crawler->addHtmlContent(Http::get('vormkracht10.nl')->body());
+    $crawler->addHtmlContent(Http::get('dashed.nl')->body());
 
-    $this->assertFalse($check->check(Http::get('vormkracht10.nl'), $crawler));
+    $this->assertFalse($check->check(Http::get('dashed.nl'), $crawler));
 });

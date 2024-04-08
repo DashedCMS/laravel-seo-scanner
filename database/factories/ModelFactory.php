@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\Seo\Database\Factories;
+namespace Dashed\Seo\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
