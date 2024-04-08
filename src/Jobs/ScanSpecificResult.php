@@ -2,8 +2,10 @@
 
 namespace Dashed\Seo\Jobs;
 
+use Dashed\Seo\Commands\SeoScan;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -17,12 +19,19 @@ class ScanSpecificResult implements ShouldQueue
 
     public $timeout = 60 * 60 * 3;
 
-    public function handle($model): void
+    public $model;
+
+    public function __construct($model)
     {
-        $seo = $model->seoScore();
+        $this->model = $model;
+    }
+
+    public function handle(): void
+    {
+        $seo = $this->model->seoScore();
 
         if (config('seo.database.save')) {
-            $this->saveScoreToDatabase(seo: $seo, url: $model->url, model: $model);
+            SeoScan::saveScoreToDatabase(seo: $seo, url: $this->model->url, model: $this->model);
         }
     }
 }

@@ -215,7 +215,7 @@ class SeoScan extends Command
         }
     }
 
-    private function saveScoreToDatabase(SeoScore $seo, string $url, ?object $model = null): void
+    public function saveScoreToDatabase(SeoScore $seo, string $url, ?object $model = null): void
     {
         $score = $seo->getScore();
 
