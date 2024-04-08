@@ -461,7 +461,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
-
+-   [Robin van Maasakker](https://github.com/Robinvm)
 -   [Bas van Dinther](https://github.com/Baspa)
 -   [Mark van Eijk](https://github.com/markvaneijk)
 -   [All Contributors](../../contributors)
