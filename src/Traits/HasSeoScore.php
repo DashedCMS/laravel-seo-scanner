@@ -12,7 +12,7 @@ trait HasSeoScore
 {
     public function seoScore(): SeoScore
     {
-        return Seo::check(url: method_exists('getUrl') ? $this->getUrl() : $this->url);
+        return Seo::check(url: method_exists($this::class, 'getUrl') ? $this->getUrl() : $this->url);
     }
 
     public function seoScores(): MorphMany
