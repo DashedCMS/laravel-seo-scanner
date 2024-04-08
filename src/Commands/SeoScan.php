@@ -179,6 +179,9 @@ class SeoScan extends Command
 
         $items->get()->filter->url->map(function ($model) {
             $this->progress->start();
+
+            $this->line('');
+            $this->line('');
             $this->line('Scanning ' . $model->url . '...');
 
             $seo = $model->seoScore();

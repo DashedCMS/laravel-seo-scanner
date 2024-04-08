@@ -33,7 +33,7 @@ class AltTagCheck implements Check
 
     public function check(Response $response, Crawler $crawler): bool
     {
-        if (! $this->validateContent($crawler)) {
+        if (!$this->validateContent($crawler)) {
             return false;
         }
 
@@ -72,7 +72,7 @@ class AltTagCheck implements Check
     {
         $src = $node->attr('src');
 
-        if (! $src) {
+        if (!$src) {
             return null;
         }
 
@@ -100,11 +100,15 @@ class AltTagCheck implements Check
             ];
         }
 
-        $dimensions = getimagesize($src);
+        try {
+            $dimensions = getimagesize($src);
+        } catch (\Exception $e) {
+            $dimensions = [];
+        }
 
         return [
-            'width' => $dimensions[0],
-            'height' => $dimensions[1],
+            'width' => $dimensions[0] ?? 0,
+            'height' => $dimensions[1] ?? 0,
         ];
     }
 }
