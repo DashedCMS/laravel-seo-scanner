@@ -31,7 +31,7 @@ class ScanSpecificResult implements ShouldQueue
         $seo = $this->model->seoScore();
 
         if (config('seo.database.save')) {
-            (new \Dashed\Seo\Commands\SeoScan)->saveScoreToDatabase(seo: $seo, url: $this->model->url, model: $this->model, true);
+            (new \Dashed\Seo\Commands\SeoScan)->saveScoreToDatabase(seo: $seo, url: $this->model->url, model: $this->model, skipScan: true);
         }
     }
 }
