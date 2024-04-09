@@ -215,7 +215,7 @@ class SeoScan extends Command
         }
     }
 
-    public function saveScoreToDatabase(SeoScore $seo, string $url, ?object $model = null): void
+    public function saveScoreToDatabase(SeoScore $seo, string $url, ?object $model = null, bool $skipScan = false): void
     {
         $score = $seo->getScore();
 
@@ -228,7 +228,7 @@ class SeoScan extends Command
 
         DB::table('seo_scores')
             ->insert([
-                'seo_scan_id' => $this->scan->id,
+                'seo_scan_id' => $skipScan ? null : $this->scan->id,
                 'url' => $url,
                 'model_type' => $model ? $model->getMorphClass() : null,
                 'model_id' => $model ? $model->id : null,
