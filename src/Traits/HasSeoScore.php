@@ -30,6 +30,11 @@ trait HasSeoScore
         return $this->seoScore()->getScore();
     }
 
+    public function getActualScore(): int
+    {
+        return $this->seoScores()->count() ? $this->seoScores()->latest()->first()->score : 0;
+    }
+
     public function getCurrentScoreDetails(): array
     {
         return $this->seoScore()->getScoreDetails();
